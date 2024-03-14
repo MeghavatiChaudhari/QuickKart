@@ -5,7 +5,8 @@ import ProductList from "./features/product-list/ProductList"
 import { Quotes } from "./features/quotes/Quotes"
 import Home from './pages/HomePage'
 import Signup from "./features/auth/components/Signup"
-
+import Cart from "./features/cart/Cart"
+import CartPage from "./pages/CartPage"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,19 +14,25 @@ import {
   Link,
 } from "react-router-dom";
 
+
+
 const router = createBrowserRouter([
   {
     path: "/",
     element:<Home></Home>,
   },
   {
-    path: "login",
+    path: "/login",
     element:<Login></Login>,
   },
   {
-    path: "Signup",
+    path: "/Signup",
     element:<Signup></Signup>,
   },
+  {
+    path:"/cart",
+    element:<CartPage></CartPage>
+  }
 ]);
 const App = () => {
   return (
