@@ -1,5 +1,5 @@
 import { createAppSlice } from "../../app/createAppSlice"
-import { fetchCount } from "./ProductListAPI"
+import { fetchCount } from "./ProductAPI"
 
 const initialState = {
   value: 0,
