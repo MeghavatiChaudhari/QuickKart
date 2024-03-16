@@ -8,7 +8,7 @@ import Signup from "./features/auth/components/Signup"
 import Cart from "./features/cart/Cart"
 import CartPage from "./pages/CartPage"
 import CheckoutPage from "./pages/CheckoutPage"
-import ProductDetail from './features/product-list/components/ProductDetail'
+import ProductDetail from './features/product/components/ProductDetail'
 import ProductDetailPage from "./pages/ProductDetailPage"
 
 import {
