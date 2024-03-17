@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState , Fragment} from "react"
 import { ChevronLeftIcon, ChevronRightIcon , StarIcon} from '@heroicons/react/20/solid'
 import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import {
-  increment,
-  incrementAsync,
-  selectCount,
-} from "../ProductSlice";
+
+import { fetchAllProductsAsync ,selectAllProducts} from '../ProductSlice';
+// import {
+//   increment,
+//   selectAllProducts,
+//   selectCount,
+// } from "../ProductSlice";
 
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -75,8 +77,13 @@ function classNames(...classes) {
 
 export default  function ProductList () {
   const dispatch = useDispatch()
-  const count = useSelector(selectCount)
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+
+   const products=useSelector(selectAllProducts);
+
+useEffect(()=>{
+  dispatch(fetchAllProductsAsync())
+},[dispatch])
 
   return (
     <div>
