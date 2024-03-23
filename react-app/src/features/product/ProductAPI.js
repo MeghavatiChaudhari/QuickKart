@@ -11,28 +11,7 @@ export const fetchAllProducts = (amount = 1) => {
   );
 }
 
-// export function fetchProductsByFilters(filter){
-//   return new Promise(async(resolve)=>{
-//     ///filter={"category":"smartphone"}
-//     // todo : on server will be supprt multiple ctaegory supprt
-//     let queryString='';
-//     for(let key in filter){
-//       queryString+=`${key}=${filter[key]}&`
-//     }
-//     // queryString = queryString.slice(0, -1);
-//     console.log(queryString);
-//     console.log(queryString)
-//     // we can use URLSearchParams(filter) method also.
-//     try{
-//       const response=await fetch('http://localhost:8080/products?'+queryString)
-//       const data= await response.json(); 
-//       resolve({data})
-//     }catch(error){
-//           isRejected(error)
-//     }
-    
-//   })
-// }
+
 
 export function fetchProductsByFilters(filter,sort){
  
@@ -46,14 +25,31 @@ export function fetchProductsByFilters(filter,sort){
    if(categoryValues.length){
     const lastCategoryValue=categoryValues[categoryValues.length-1];
     queryString+=`${key}=${lastCategoryValue}&`
-    console.log(queryString)
+    // console.log(queryString)
    }
   }
-  for(let key in sort){
-    queryString+=`${key}=${sort[key]}&`
-    console.log(queryString)
+  // for(let key in sort){
+  //   queryString+=`${key}=${sort[key]}&`
+  //   console.log(queryString)
+  // }
+  for (let key in sort) {
+    if (key === '_sort') {
+      // Check if sorting is descending
+      if (sort[key].startsWith('-')) {
+
+        console.log(sort[key]+"yehekey")
+        // If descending, directly append to the query string
+        queryString += `_sort=${sort[key].substring(1)}&`; // Remove the '-' sign
+        console.log(queryString)
+      } else {
+        // If not descending, append '-' to indicate descending order
+        queryString += `_sort=-${sort[key]}&`;
+      }
+    } else {
+      // For other keys, append normally
+      queryString += `${key}=${sort[key]}&`;
+    }
   }
-  
 
   return new Promise(async(resolve,reject)=>{
 try{

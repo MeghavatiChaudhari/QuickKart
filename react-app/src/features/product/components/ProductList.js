@@ -17,7 +17,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 
 const sortOptions = [
   { name: 'Best Rating',sort:'rating',order:'desc', current: false },
-  { name: 'Price: Low to High', sort:'price',order:'asc',thumbnail: '#', current: false },
+  { name: 'Price: Low to High', sort:'-price',order:'asc',thumbnail: '#', current: false },
   { name: 'Price: High to Low', sort:'price',order:'desc',thumbnail: '#', current: false },
 ]
 const subCategories = [
@@ -236,7 +236,10 @@ export default  function ProductList () {
 
    const handleSort=(e,option)=>{
     const sort = {_sort:option.sort};
+    console.log(option.sort)
+    console.log(sort+"hey sory")
     // console.log(newFilter)
+    
     setSort(sort);
    }
 
