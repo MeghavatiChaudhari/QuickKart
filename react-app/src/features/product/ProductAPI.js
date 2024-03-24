@@ -13,11 +13,11 @@ export const fetchAllProducts = (amount = 1) => {
 
 
 
-export function fetchProductsByFilters(filter,sort){
+export function fetchProductsByFilters(filter,sort,pagination){
  
   // filter={"category":["smartphone","laptops"]}
   // sort={_sort:'price',_order="desc"}
-
+ //pagination = {_page:1,_limit=10}
   // todo : on server we will support multi value
   let queryString='';
   for(let key in filter){
@@ -28,10 +28,6 @@ export function fetchProductsByFilters(filter,sort){
     // console.log(queryString)
    }
   }
-  // for(let key in sort){
-  //   queryString+=`${key}=${sort[key]}&`
-  //   console.log(queryString)
-  // }
   for (let key in sort) {
     if (key === '_sort') {
       // Check if sorting is descending
@@ -40,7 +36,7 @@ export function fetchProductsByFilters(filter,sort){
         console.log(sort[key]+"yehekey")
         // If descending, directly append to the query string
         queryString += `_sort=${sort[key].substring(1)}&`; // Remove the '-' sign
-        console.log(queryString)
+        
       } else {
         // If not descending, append '-' to indicate descending order
         queryString += `_sort=-${sort[key]}&`;
@@ -51,12 +47,25 @@ export function fetchProductsByFilters(filter,sort){
     }
   }
 
+  let isFirstParam = true;
+for (let key in pagination) {
+    if (!isFirstParam) {
+        queryString += '&';
+    }
+    queryString += `${key}=${pagination[key]}`;
+    isFirstParam = false;
+    console.log(queryString);
+}
+
   return new Promise(async(resolve,reject)=>{
 try{
 
   const response = await fetch('http://localhost:8080/products?'+queryString);
-      const data = await response.json();
-      resolve({ data });
+      const data = await response.json()
+      // const totalItems= await response.headers.get('X-Total-Count')
+      const totalItems=100;
+      console.log(totalItems)
+      resolve({ data:{products:data,totalItems:totalItems} });
 }
     // we can use URLSearchParams(filter) method also.
     catch (error) {
