@@ -77,6 +77,28 @@ try{
 
 
 
+export const fetchCategories = () => {
+  return new Promise(async (resolve) =>{
+    //todo:I will not hard code server url here
+    const response = await fetch('http://localhost:8080/Category')
+    const data = await response.json()
+    resolve({data})
+  }
+  );
+}
+
+
+export const fetchBrands = () => {
+  return new Promise(async (resolve) =>{
+    //todo:I will not hard code server url here
+    const response = await fetch('http://localhost:8080/brands')
+    const data = await response.json()
+    resolve({data})
+  }
+  );
+}
+
+
 
 
 
