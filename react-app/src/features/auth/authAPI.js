@@ -1,9 +1,39 @@
+import { isRejected } from "@reduxjs/toolkit";
+
 // A mock function to mimic making an async request for data
-export const fetchCount = (amount = 1) => {
+export const createUser = (userData) => {
   return new Promise(async (resolve) =>{
-    const response = await fetch('http://localhost:8080')
-    const result = await response.json()
+    const response = await fetch('http://localhost:8080/users',{
+      method:'Post',
+      body:JSON.stringify(userData),
+      headers:{'content-type':'application/json'}
+    })
+    const data = await response.json()
     resolve({data})
+  }
+  );
+}
+
+
+export const checkUser = (loginInfo) => {
+  return new Promise(async (resolve,reject) =>{
+    const email=loginInfo.email;
+    const password = loginInfo.password;
+    const response = await fetch('http://localhost:8080/users?email='+email);
+    const data = await response.json();
+    console.log(data);
+    if(data.length && typeof data[0]==='object' && 'password' in data[0]){
+      if(data.length){
+        if(password==data[0].password){
+          resolve({data:data[0]});
+        }else{
+          reject({message:'wrong credentials'});
+        }
+      }
+    }
+   else{
+        reject({message:'user not found'})
+    }    
   }
   );
 }
