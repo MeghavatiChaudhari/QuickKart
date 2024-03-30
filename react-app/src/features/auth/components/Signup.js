@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { selectLoggedInUser,createUserAsync } from "../authSlice";
+import { Navigate } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux"
 // import {
 //   increment,
@@ -40,7 +41,7 @@ export default function Signup() {
             noValidate
             class="space-y-6"
             onSubmit={handleSubmit((data) => {
-              dispatch(createUserAsync({email:data.email,password:data.password}))
+              dispatch(createUserAsync({email:data.email,password:data.password,addresses:[]}))
               console.log(data);
             })}
           >
