@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { createAppSlice } from "../../app/createAppSlice"
 import { createUser,checkUser } from "./authAPI"
-
+import { selectItems } from "../cart/cartSlice";
+import { UseSelector, useSelector } from "react-redux";
 const initialState = {
   loggedInUser:null,
   status: "idle",
@@ -20,7 +21,9 @@ export const checkUserAsync = createAsyncThunk(
   'user/checkUser',
   async (loginInfo)=>{
     const response = await checkUser(loginInfo);
+    console.log(response.data)
     return response.data;
+    
   }
 )
 
